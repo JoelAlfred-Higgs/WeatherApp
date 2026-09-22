@@ -1,4 +1,4 @@
-````markdown name=README.md
+
 # WeatherApp
 
 A simple Python command-line weather application that uses the [OpenWeather API](https://openweathermap.org/api) to retrieve current weather conditions for a city.
@@ -118,4 +118,3 @@ WeatherApp/
 ## License
 
 No license has been specified for this project.
-````
