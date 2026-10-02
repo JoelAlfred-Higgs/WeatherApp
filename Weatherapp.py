@@ -1,9 +1,10 @@
 import requests
+import os
 def coord(name):
     headers = {                
         "content-type":"application/json"
     } 
-    API_key = "YOUR_API_KEY"
+    API_key = os.environ.get('API_KEY_COORD')
     try:
         res = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={name}&limit=1&appid={API_key}",headers=headers)
         if res.status_code == 200:
@@ -24,7 +25,7 @@ def coord(name):
         print("request timed out")
 
 def weather(lat,lon):
-    API_key = "YOUR_API_KEY"
+    API_key = os.environ.get("API_KEY_weather")
     headers = {
         "content-type":"application/json"
     } 
