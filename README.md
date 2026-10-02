@@ -1,24 +1,23 @@
-
 # WeatherApp
 
-A simple Python command-line weather application that uses the [OpenWeather API](https://openweathermap.org/api) to retrieve current weather conditions for a city.
+A simple Python command-line weather application that uses the OpenWeather API to look up a city and display the current weather conditions.
 
 ## Features
 
 - Accepts a city name from the command line.
-- Converts the city name into geographic coordinates.
-- Retrieves the current weather for the city.
+- Converts the city name to latitude and longitude using the OpenWeather geocoding API.
+- Fetches the current weather for that location.
 - Displays:
-  - City name
-  - Temperature in Celsius
-  - Humidity
-  - Weather description
-- Handles unavailable cities, connection errors, request timeouts, and API errors.
+  - city name
+  - temperature in Celsius
+  - humidity percentage
+  - weather description
+- Gracefully handles invalid cities, missing internet access, timeouts, and unexpected API responses.
 
 ## Requirements
 
 - Python 3.8 or later
-- An OpenWeather API key
+- OpenWeather API keys for both geocoding and weather requests
 - Internet connection
 
 ## Installation
@@ -36,7 +35,7 @@ A simple Python command-line weather application that uses the [OpenWeather API]
    python -m venv venv
    ```
 
-   On macOS or Linux:
+   On macOS/Linux:
 
    ```bash
    source venv/bin/activate
@@ -48,7 +47,7 @@ A simple Python command-line weather application that uses the [OpenWeather API]
    venv\Scripts\activate
    ```
 
-3. Install the dependencies:
+3. Install dependencies:
 
    ```bash
    pip install -r requirements.txt
@@ -58,20 +57,25 @@ A simple Python command-line weather application that uses the [OpenWeather API]
 
 1. Create an account at [OpenWeather](https://openweathermap.org/).
 2. Generate an API key.
-3. Open `Weatherapp.py`.
-4. Replace both occurrences of:
+3. Set the required environment variables before running the app.
 
-   ```python
-   API_key = "YOUR_API_KEY"
+   macOS/Linux:
+
+   ```bash
+   export API_KEY_COORD="your_geocoding_api_key"
+   export API_KEY_weather="your_weather_api_key"
    ```
 
-   with your actual API key:
+   Windows PowerShell:
 
-   ```python
-   API_key = "your_actual_api_key"
+   ```powershell
+   $env:API_KEY_COORD = "your_geocoding_api_key"
+   $env:API_KEY_weather = "your_weather_api_key"
    ```
 
-> Do not commit your API key to a public repository. For production use, store it in an environment variable instead.
+   If you use the same key for both services, you can assign the same value to both variables.
+
+> Do not commit API keys to a public repository. For a production app, consider storing them in a secure environment or secret manager.
 
 ## Usage
 
@@ -81,7 +85,7 @@ Run the application with:
 python Weatherapp.py
 ```
 
-Enter a city name when prompted:
+When prompted, enter a city name:
 
 ```text
 Enter city name: London
@@ -101,10 +105,10 @@ The project uses:
 
 The application reports errors when:
 
-- The city cannot be found.
-- There is no internet connection.
-- The request times out.
-- The OpenWeather API returns an unexpected status code.
+- the city cannot be found
+- there is no internet connection
+- the request times out
+- the OpenWeather API returns an unexpected status code
 
 ## Project Structure
 
@@ -112,7 +116,8 @@ The application reports errors when:
 WeatherApp/
 ├── Weatherapp.py
 ├── requirements.txt
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ## License
